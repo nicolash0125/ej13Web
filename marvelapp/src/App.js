@@ -1,23 +1,30 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Personaje from './Personaje.js';
 
 function App() {
+  const [personaje, setPersonaje] = useState(null);
+
+  useEffect(()=>{
+    if(!navigator.onLine){
+        if(localStorage.getItem("joke") === null) {
+          setPersonaje("Loading...")
+        } else {
+          setPersonaje(localStorage.getItem("joke"));
+        }
+    } else {
+        const URL = "https://api.chucknorris.io/jokes/random";
+        fetch(URL).then(res=>res.json()).then(res=>{
+            setPersonaje(res.value);
+            localStorage.setItem("joke", res.value);
+        })
+    }
+}, []);
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Personaje></Personaje>
       </header>
     </div>
   );
