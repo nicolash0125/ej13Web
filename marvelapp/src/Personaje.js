@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Errores from './errores.jpeg'
 export default function Personaje() {
   const [personaje, setPersonaje] = useState(null);
 
@@ -20,8 +21,12 @@ export default function Personaje() {
     }
   }, []);
   return (
+
     <>
-      <h1>Personajes de marvel</h1>
+    <h1>Personajes de marvel</h1>
+    <p>No esta disponible el api de marvel. Se hace el fectch a los chistes</p>
+    <img src= {Errores}></img>
+      
       {personaje}
     </>
   );
